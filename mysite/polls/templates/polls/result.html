@@ -1,0 +1,10 @@
+<h1>
+    {{ question.question_text }}
+</h1>
+<ul>
+    {% for choice in question.choice_set.all %}
+        <li>【質問内容】{{ choice.choice_text }} 投票数： {{ choice.votes }}</li>
+    {% endfor %}
+    </ul>
+    
+    <a href="{% url 'polls:detail' question.id %}">もう一度投票をする場合はこちら！</a>
