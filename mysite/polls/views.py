@@ -3,17 +3,23 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
+from django.utils import timezone
 
 from .models import Question, Choice
 
 # Create your views here.
 class IndexView(generic.ListView):
     template_name = "polls/index.html"
-    #モデル名を指定するか
-    model = Question
+    
     context_object_name = "latest_question_list"
 
-    """以下の処理でDBからのデータ一覧を取得すること
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by("-pub_date")[:5]
+
+    """
+    #モデル名を指定するか
+    #model = Question
+    以下の関数でDBからのデータ一覧を取得可能
     　　ただし、関数名は「get_queryset」でないとNG
     def get_queryset(self):
         return Question.objects.order_by("-pub_date")[:5]
@@ -23,6 +29,9 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Question
     template_name = "polls/detail.html"
+
+    def get_queryset(self):
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 class ResultsView(generic.DetailView):
