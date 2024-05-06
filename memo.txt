@@ -1,0 +1,15 @@
+Djangoアプリの色々
+
+バージョン確認
+python -m django --version
+
+プロジェクトの作成
+django-admin startproject mysite
+
+サーバの起動
+cd プロジェクト
+python manage.py runserver
+
+アプリの作成
+python manage.py startapp polls
+
