@@ -1,5 +1,7 @@
 Djangoアプリの色々
 
+http://localhost:8000/BookRecords/
+
 バージョン確認
 python -m django --version
 
@@ -8,8 +10,46 @@ django-admin startproject mysite
 
 サーバの起動
 cd プロジェクト
-python manage.py runserver
+python3 manage.py runserver
 
 アプリの作成
-python manage.py startapp polls
+python3 manage.py startapp polls
 
+djangoのページ表示フロー
+
+1. リクエストが送信
+2. プロジェクトディレクトリ直下のプロジェクト名ディレクトリ内に存在するurls.pyを参照
+3. urlpatternsに定義されている値と比較し、パターンが一致していればその処理を行う
+
+参考記事
+https://qiita.com/murabo/items/b99fd8b137e348b1358c
+
+DBを設定する
+setting.py内のengineなどの設定値を変更する
+デフォルトはsqlite
+
+DBの型について
+https://qiita.com/okoppe8/items/13ad7b7d52fd6a3fd3fc
+
+上記の記事を参考にmodels.pyに記載していく
+クラス名がテーブル名
+その配下にカラムを定義していく
+
+記載が完了したら以下のコマンドを実行し、マイグレーションファイルを作成する
+python3 manage.py makemigrations アプリ名（BookRecordsみたいな感じ）
+
+以下のコマンドを実行し、作成したマイグレーションファイルから生成されるSQLコマンドの確認を行う（生成している？）
+python3 manage.py sqlmigrate BookRecords 0001（上記コマンド実行時に表示される）
+
+問題なければ以下のコマンドでSQLを実行
+python3 manage.py migrate
+
+HTMLテンプレートを使う場合、以下の設定を追加する
+「TEMPLATES」内に以下の記述を追記
+'DIRS': [BASE_DIR / 'templates'],
+
+manage.pyの存在するディレクトリにtemplatesディレクトリを作成する
+
+cssやJSファイルを使用する場合、
+作成したアプリケーションのディレクトリ配下にstaticディレクトリを作成する。
+その中にstyle

@@ -1,0 +1,24 @@
+{% block block_header %}
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title_block %}
+            <!-- この中は継承先で定義 -->
+            {% endblock %}
+        </title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'BookRecords/css/style.css' %}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Bootstrapの読み込み -->
+    </head>
+    <body>
+        <h1>BookRecords</h1>
+        <div class="container">
+            {% block body_block %}
+            <!-- この中は継承先で定義 -->
+            {% endblock %}
+        </div>
+    </body>
+</html>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "BookRecords/header.html" %}
+    {% block title_block %}
+    {% endblock %}
+    {% block body_block %}
+        {% if BookList %}
+            <ul>
+            {% for books in BookList %}
+                <li><a href="/BookRecords/{{ question.id }}/">{{ books.name }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+        <p class="font_red">書籍が未登録です。</p>
+        {% endif %}
+    {% endblock %}
