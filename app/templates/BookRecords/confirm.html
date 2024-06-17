@@ -1,0 +1,35 @@
+{% extends "BookRecords/header.html" %}
+    {% block title_block %}
+    {% endblock %}
+    {% block body_block %}
+        <div class="row">
+            <form action="" method="POST">
+                <div class="container-fluid">
+                    <!-- 水平方向の横スクロールバーを加える -->
+                    <div class="table-responsive col-auto">
+                        <!-- 縞ストライプで見やすくする -->
+                        <table class="table">
+                            {% for formValue in form %}
+                                {% if formValue.value %}
+                                    <tr>
+                                        <th>
+                                            {{formValue.label}}
+                                        </th>
+                                    </tr>
+                                    <td>
+                                        {{formValue.value}}
+                                        {{ formValue.as_hidden }}
+                                    </td>
+                                {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                {% csrf_token %}
+                <input name="confirm" type="submit" value="書籍を登録">
+            </form>
+        </div>
+        <div class="row">
+            
+        </div>
+    {% endblock %}

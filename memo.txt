@@ -1,5 +1,8 @@
 Djangoアプリの色々
 
+以下のコマンドでポスグレを起動してからでないとエラーが発生する
+postgres -D /usr/local/var/postgres
+
 http://localhost:8000/BookRecords/
 
 バージョン確認
@@ -53,3 +56,15 @@ manage.pyの存在するディレクトリにtemplatesディレクトリを作�
 cssやJSファイルを使用する場合、
 作成したアプリケーションのディレクトリ配下にstaticディレクトリを作成する。
 その中にstyle
+
+新規登録画面を作成する際の流れ
+1. forms.pyを作成
+　models.pyが存在するディレクトリにforms.pyを作成
+
+2.forms.pyについて
+公式ドキュメント
+https://docs.djangoproject.com/ja/3.2/topics/forms/
+
+フォームの定義は以下を参照
+https://zenn.dev/tigrebiz/articles/djang-form-framework#%E5%9F%BA%E6%9C%AC%E7%9A%84%E3%81%AA%E3%83%95%E3%82%A3%E3%83%BC%E3%83%AB%E3%83%89%E3%82%BF%E3%82%A4%E3%83%97
+

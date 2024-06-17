@@ -1,0 +1,10 @@
+{% extends "BookRecords/header.html" %}
+    {% block title_block %}
+    {% endblock %}
+    {% block body_block %}
+        <form action="/BookRecords/confirm/" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input name="reg" type="submit" value="入力内容の確認へ">
+        </form>
+    {% endblock %}
