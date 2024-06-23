@@ -2,9 +2,43 @@
     {% block title_block %}
     {% endblock %}
     {% block body_block %}
-        <form action="/BookRecords/confirm/" method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <input name="reg" type="submit" value="入力内容の確認へ">
-        </form>
+        <div class="row">
+            <form action="/BookRecords/confirm/" method="POST">
+                {% csrf_token %}
+                <div class="name_field text-input">
+                    {{ form.name }}
+                    <label for="id_name">書籍名</label>
+                    {{ form.name.errors }}
+                </div>
+
+                <div class="detail_field text-input">
+                    {{ form.detail }}
+                    <label for="id_detail">詳細</label>
+                    {{ form.detail.errors }}
+                </div>
+
+                <div class="checkbox">
+                    <label class="checkbox__container" for="">持っている？</label>
+                    <label class="checkbox__container" for="id_have">
+                        {{ form.have }}
+                        {{ form.have.errors }}
+                        <span class="checkbox__checker"></span>
+                        <span class="checkbox__cross"></span>
+                        <span class="checkbox__ok"></span>
+                        <svg class="checkbox__bg" space="preserve" style="enable-background:new 0 0 110 43.76;" version="1.1" viewBox="0 0 110 43.76">
+                            <path class="shape" d="M88.256,43.76c12.188,0,21.88-9.796,21.88-21.88S100.247,0,88.256,0c-15.745,0-20.67,12.281-33.257,12.281,S38.16,0,21.731,0C9.622,0-0.149,9.796-0.149,21.88s9.672,21.88,21.88,21.88c17.519,0,20.67-13.384,33.263-13.384,S72.784,43.76,88.256,43.76z"></path>
+                        </svg>
+                    </label>
+                </div>
+
+                <div class="release_date_field input-field">
+                    <label for="id_release_date">発売日</label>
+                    {{ form.release_date }}
+                    {{ form.release_date.errors }}
+                </div>
+                <div class="submit_div">
+                    <input name="reg" class="btn btn--orange btn--cubic" type="submit" value="入力内容の確認へ">
+                </div>
+            </form>
+        </div>
     {% endblock %}

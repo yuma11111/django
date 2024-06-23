@@ -7,7 +7,7 @@ class regesterBookForm(forms.ModelForm):
         model = BookRecord
         fields = ('name', 'detail','have','release_date',)
         labels={
-           'name':'名前',
+           'name':'書籍名',
            'detail':'詳細',
            'have':'持っている？',
            'release_date':'発売日',

@@ -20,13 +20,22 @@
                                         {{formValue.value}}
                                         {{ formValue.as_hidden }}
                                     </td>
+                                {% else %}
+                                    <tr>
+                                        <th>
+                                            {{formValue.label}}
+                                        </th>
+                                    </tr>
+                                    <td>
+                                        <span class="font_red">未入力</span>
+                                    </td>
                                 {% endif %}
                             {% endfor %}
                         </table>
                     </div>
                 </div>
                 {% csrf_token %}
-                <input name="confirm" type="submit" value="書籍を登録">
+                <input name="confirm" class="btn btn--orange btn--cubic" type="submit" value="書籍を登録">
             </form>
         </div>
         <div class="row">

@@ -8,17 +8,56 @@
             {% endblock %}
         </title>
         {% load static %}
+        <link rel='stylesheet' href='https://unpkg.com/ress/dist/ress.min.css'>
+        <script src="{% static 'BookRecords/js/header.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'BookRecords/css/header.css' %}">
+        <link rel="stylesheet" href="{% static 'BookRecords/css/form.css' %}">
         <link rel="stylesheet" href="{% static 'BookRecords/css/style.css' %}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <!-- Bootstrapの読み込み -->
     </head>
     <body>
-        <h1>BookRecords</h1>
-        <div class="container">
-            {% block body_block %}
-            <!-- この中は継承先で定義 -->
-            {% endblock %}
-        </div>
+        <main>
+            <header id="app-header" class="app-header">
+  
+                <div class="background-container">
+                  <div id="background-back" class="background"></div>
+                  <div id="background-front" class="background"></div>
+                </div>
+                <div class="header-content">
+                  <div id="small-toolbar" class="app-toolbar">
+                    <div class="icon-button">
+                      <div class="icon">
+                        <i class="material-icons">menu</i>            
+                      </div>
+                    </div>
+                    <div id="small-title" class="small-title f_cherry_swash">
+                        <h1 class="f_cherry_swash">BookRecords</br><span class="fsize_05em">― 書籍管理機能 ―</span></h1>
+                    </div>     
+                    <div class="icon-button">
+                      <div class="icon">            
+                        <i class="material-icons">search</i>
+                      </div>
+                    </div>
+                    <div class="icon-button">
+                      <div class="icon">            
+                        <i class="material-icons">more_vert</i>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="large-toolbar" class="app-toolbar tall">
+                    <div id="large-title" class="large-title">
+                      <h1 class="f_cherry_swash">BookRecords</br><span class="fsize_05em">― 書籍管理機能 ―</span></h1>
+                    </div>
+                  </div>
+                </div>
+              </header>
+              <div class="container">
+                {% block body_block %}
+                <!-- この中は継承先で定義 -->
+                {% endblock %}
+            </div>
+        </main>
     </body>
 </html>
 {% endblock %}
