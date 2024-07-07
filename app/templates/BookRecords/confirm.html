@@ -17,7 +17,17 @@
                                         </th>
                                     </tr>
                                     <td>
-                                        {{formValue.value}}
+                                        {% if formValue.name == 'have' %}
+                                            {% if formValue.value == '1' %}
+                                                持っていない
+                                            {% elif formValue.value == '2' %}
+                                                買う予定
+                                            {% elif formValue.value == '3' %}
+                                                持っている
+                                            {% endif %}
+                                        {% else %}
+                                            {{formValue.value}}
+                                        {% endif %}
                                         {{ formValue.as_hidden }}
                                     </td>
                                 {% else %}

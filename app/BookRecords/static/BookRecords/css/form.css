@@ -29,6 +29,7 @@ body {
 
 /* テキストボックス */
 
+
 .text-input input[type="text"] {
   display: inline-block;
   width: 500px;
@@ -275,3 +276,46 @@ height: 100%;
 /* 発売日 カレンダー */
 
 /*# sourceMappingURL=form.css.map */
+
+.label_radio {        
+  top: 0;
+  left: 0;
+  bottom: 0;
+  line-height: 45px;
+  color: white;
+  border-radius: 3px 0 0 3px;
+  padding: 0 20px;
+  background: #E03616;
+  -webkit-transform: translateZ(0) translateX(0);
+          transform: translateZ(0) translateX(0);
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+  -webkit-transition-delay: 0.2s;
+          transition-delay: 0.2s;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+.radio-inline__input {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+}
+
+.radio-inline__label {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    transition: all .2s;
+}
+
+.radio-inline__input:checked + .radio-inline__label {
+    background: #B54A4A;
+    color: #fff;
+    text-shadow: 0 0 1px rgba(0,0,0,.7);
+}
+
+.radio-inline__input:focus + .radio-inline__label {
+    outline-color: #4D90FE;
+    outline-offset: -2px;
+    outline-style: auto;
+    outline-width: 5px;
+}
+

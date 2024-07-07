@@ -1,11 +1,11 @@
 from django.db.models import F
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from django.urls import reverse
 from django.views import View
 
-from .forms import regesterBookForm
+from .forms import regesterBookForm, updateBookForm
 from .models import BookRecord, series
 
 # Create your views here.
@@ -53,4 +53,34 @@ class ConfirmView(View):
                 
                 return redirect('/BookRecords/')
         
-        return render(request, 'BookRecords/confirm.html', {'form':form})
+        aHave = {0:'持っていない',1:'買う予定',2:'持っている'}
+        
+        return render(request, 'BookRecords/confirm.html', {'form':form, 'aHave':aHave})
+
+class BookUpdateView(generic.UpdateView):
+    model = BookRecord      
+    template_name = 'BookRecords/edit.html'
+    form_class = updateBookForm
+    template_name_suffix = "_update_form"
+
+    def get_success_url(self):
+        return reverse("BookRecords:update", kwargs={"pk":self.object.pk})
+
+    def get(self, request, books_id):
+        form = self.form_class
+        #return render(request, 'BookRecords/edit.html', {'form':form, 'Books':Books})
+        return render(request, 'BookRecords/edit.html', {'form':form})
+
+    def post(self, request):
+        if "list" in request.POST:
+            #Books = get_object_or_404(BookRecord, pk=id)
+            form = editBookForm()
+            
+        elif "edit" in request.POST:
+            form = editBookForm(request.POST)
+            #入力チェックに問題がない場合
+            if form.is_valid():
+                #確認画面へ遷移
+                return render(request, 'BookRecords/edit_confirm.html', {'form':form})
+        
+        return render(request, 'BookRecords/edit.html', {'form':form, 'Books':Books})

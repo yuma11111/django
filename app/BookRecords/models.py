@@ -12,7 +12,7 @@ class BookRecord(models.Model):
     #詳細
     detail = models.TextField(null=True, blank=True)
     #所有しているか
-    have = models.BooleanField(default=False)
+    have = models.IntegerField(null=True,blank=True)
     #発売日
     release_date = models.DateTimeField(null=True, blank=True)
     #削除フラグ

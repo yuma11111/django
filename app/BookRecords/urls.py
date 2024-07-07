@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('reg/', views.RegesterView.as_view(), name='reg'),
     path('confirm/', views.ConfirmView.as_view(), name='confirm'),
+    path('edit/<int:books_id>/', views.BookUpdateView.as_view(), name='update')
 ]
