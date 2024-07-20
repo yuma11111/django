@@ -14,7 +14,7 @@ class BookRecord(models.Model):
     #所有しているか
     have = models.IntegerField(null=True,blank=True)
     #発売日
-    release_date = models.DateTimeField(null=True, blank=True)
+    release_date = models.DateField(null=True, blank=True)
     #削除フラグ
     delete_flg = models.BooleanField(default=False)
     #インサート日

@@ -16,13 +16,21 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return BookRecord.objects.order_by("-id")
-        #context = {"BookList": BookList}
-        #return render(request, "BookRecords/index.html", context_object_name)
 
     def post(self, request):
         return self.get(request)
 
-class RegesterView(View):        
+class BooksDetailView(generic.DetailView):
+    
+    template_name = 'BookRecords/detail.html'
+    model = BookRecord
+
+    def get(self, request, books_id):
+        book = get_object_or_404(BookRecord,pk=books_id)
+        return render(request, 'BookRecords/detail.html', {'book':book, 'books_id':books_id})
+
+
+class BooksRegesterView(View):        
     template_name = 'BookRecords/reg.html'
 
     def post(self, request):
@@ -38,45 +46,23 @@ class RegesterView(View):
         
         return render(request, 'BookRecords/reg.html', {'form':form})
 
-
-class ConfirmView(View):
-    template_name = 'BookRecords/confirm.html'
-
-    def post(self, request):
-        form = regesterBookForm(request.POST)
-        if "confirm" in request.POST:
-            if "name" in request.POST:
-                #入力チェックに問題がない場合
-                if form.is_valid():
-                    form.save(commit=True)
-                    #確認画面へ遷移
-                
-                return redirect('/BookRecords/')
-        
-        aHave = {0:'持っていない',1:'買う予定',2:'持っている'}
-        
-        return render(request, 'BookRecords/confirm.html', {'form':form, 'aHave':aHave})
-
-class BookUpdateView(generic.UpdateView):
+class BooksUpdateView(generic.UpdateView):
     model = BookRecord      
     template_name = 'BookRecords/edit.html'
     form_class = updateBookForm
-    template_name_suffix = "_update_form"
-
-    def get_success_url(self):
-        return reverse("BookRecords:update", kwargs={"pk":self.object.pk})
 
     def get(self, request, books_id):
-        form = self.form_class
-        #return render(request, 'BookRecords/edit.html', {'form':form, 'Books':Books})
-        return render(request, 'BookRecords/edit.html', {'form':form})
+
+        #DBから値を取得する
+        #pkがWHERE句で指定するID
+        book = get_object_or_404(BookRecord,pk=books_id)
+
+        #formを設定。初期値として復元したい値を表示
+        form = self.form_class(initial={'name': book.name, 'detail': book.detail, 'have': book.have, 'release_date': book.release_date})
+        return render(request, 'BookRecords/edit.html', {'form':form,'book':book,'books_id':books_id})
 
     def post(self, request):
-        if "list" in request.POST:
-            #Books = get_object_or_404(BookRecord, pk=id)
-            form = editBookForm()
-            
-        elif "edit" in request.POST:
+        if "edit" in request.POST:
             form = editBookForm(request.POST)
             #入力チェックに問題がない場合
             if form.is_valid():
@@ -84,3 +70,60 @@ class BookUpdateView(generic.UpdateView):
                 return render(request, 'BookRecords/edit_confirm.html', {'form':form})
         
         return render(request, 'BookRecords/edit.html', {'form':form, 'Books':Books})
+
+class ConfirmView(View):
+    template_name = 'BookRecords/confirm.html'
+    model = BookRecord
+    form_class = updateBookForm
+
+    def post(self, request):
+        # 新規登録 入力画面
+        if "command" in request.POST:
+            input_command = request.POST.get('command', None)
+
+            #新規登録
+            if input_command == '1':
+                command = 'reg'
+                books_id = ''
+            #修正
+            elif input_command == '2':
+                command = 'edit'
+                if 'books_id' in request.POST:
+                    books_id = request.POST.get('books_id', None)
+            
+            form = regesterBookForm(request.POST)
+            return render(request, 'BookRecords/confirm.html', {'form':form, 'command':command, 'books_id':books_id})
+
+        else:
+            #新規登録
+            if "reg" in request.POST:
+                form = regesterBookForm(request.POST)
+                if "name" in request.POST:
+                    #入力チェックに問題がない場合
+                    if form.is_valid():
+                        form.save(commit=True)
+                        #一覧画面へ遷移
+                        return redirect('/BookRecords/')
+            #修正
+            elif "edit" in request.POST:
+                books_id = request.POST.get('books_id', None)
+                book = get_object_or_404(BookRecord,pk=books_id)
+                form = updateBookForm(request.POST, instance=book)
+                #入力チェックに問題がない場合
+                if form.is_valid():
+                    form.save(commit=True)
+                    #修正対象の詳細画面に遷移
+                    return redirect('/BookRecords/detail/'+books_id)
+            
+            #削除
+            elif "delete" in request.POST:
+                books_id = request.POST.get('books_id', None)
+                book = get_object_or_404(BookRecord, pk=books_id)
+                book.delete()
+                return redirect('/BookRecords/')
+    
+    #削除
+    def get(self, request, books_id):
+        book = get_object_or_404(BookRecord,pk=books_id)
+        form = self.form_class(initial={'name': book.name, 'detail': book.detail, 'have': book.have, 'release_date': book.release_date})
+        return render(request, 'BookRecords/confirm.html', {'form':form, 'books_id':books_id, 'command':'delete'})

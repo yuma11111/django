@@ -46,8 +46,10 @@
                     {{ form.release_date.errors }}
                 </div>
                 <div class="submit_div">
-                    <input name="reg" class="btn btn--orange btn--cubic" type="submit" value="入力内容の確認へ">
+                    <input name="edit" class="btn btn--orange btn--cubic" type="submit" value="入力内容の確認へ">
                 </div>
+                <input type="hidden" name="books_id" value="{{ books_id }}">
+                <input type="hidden" name="command" value="2">
             </form>
         </div>
     {% endblock %}

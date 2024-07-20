@@ -1,0 +1,45 @@
+{% extends "BookRecords/header.html" %}
+    {% block title_block %}
+    {% endblock %}
+    {% block body_block %}
+        <div class="row">
+            <table>
+                <tr>
+                  <th>書籍名</th>
+                  <td>{{ book.name }}</td>
+                </tr>
+                <tr>
+                  <th>詳細</th>
+                  <td>{{ book.detail }}</td>
+                </tr>
+                <tr>
+                  <th>持っている？</th>
+                  <td>
+                    {% if book.have == 1 %}
+                        持っていない
+                    {% elif book.have == 2 %}
+                        買う予定
+                    {% elif book.have == 3 %}
+                        持っている
+                    {% else %}
+                      未登録
+                    {% endif %}
+                  </td>
+                </tr>
+                <tr>
+                    <th>リリース日</th>
+                    <td>
+                        {% if book.release_date != None %}
+                            {{ book.release_date }}
+                        {% else %}
+                            未登録
+                        {% endif %}
+                    </td>
+                  </tr>
+              </table>
+        </div>
+        <div class="row">
+            <a href="/BookRecords/confirm/{{ books_id }}/">登録情報の削除</a>
+            <a href="/BookRecords/books_edit/{{ books_id }}/">登録情報の修正</a>
+        </div>
+    {% endblock %}

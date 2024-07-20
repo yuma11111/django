@@ -7,7 +7,7 @@
             {% if BookList %}
                 <ul class="list-group list-group-flush">
                     {% for books in BookList %}
-                        <li class="list-group-item"><a href="/BookRecords/edit/{{ books.id }}/">{{ books.name }}</a></li>
+                        <li class="list-group-item"><a href="/BookRecords/detail/{{ books.id }}/">{{ books.name }}</a></li>
                     {% endfor %}
                 </ul>
             {% else %}

@@ -21,7 +21,9 @@ from . import views
 app_name = "BookRecords"
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('reg/', views.RegesterView.as_view(), name='reg'),
-    path('confirm/', views.ConfirmView.as_view(), name='confirm'),
-    path('edit/<int:books_id>/', views.BookUpdateView.as_view(), name='update')
+    path('reg/', views.BooksRegesterView.as_view(), name='books_reg'),
+    path('confirm/', views.ConfirmView.as_view(), name='books_confirm'),
+    path('confirm/<int:books_id>/', views.ConfirmView.as_view(), name='books_confirm'),
+    path('detail/<int:books_id>/', views.BooksDetailView.as_view(), name='books_detail'),
+    path('books_edit/<int:books_id>/', views.BooksUpdateView.as_view(), name='books_update'),
 ]
